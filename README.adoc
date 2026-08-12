@@ -1,4 +1,5 @@
 :allow-uri-read: true
+:experimental: true
 :issues: https://github.com/twilio-samples/twilio-verify-passwordless-authentication-go/issues
 :mit-license: https://mit-license.org
 :ngrok: https://ngrok.com/
@@ -18,7 +19,9 @@ To run the app locally, you need the following:
 
 * {try-twilio}[A Twilio account with] an active phone number that can send SMS
 * Go
-* {ngrok}[ngrok] and a free ngrok account
+* Your preferred code editor or IDE
+* Your preferred web browser
+* Some terminal experience is helpful, though not required
 
 == Quickstart
 
@@ -28,8 +31,8 @@ To set up the project, clone it locally, and change into the project directory.
 
 [source,bash]
 ----
-git clone git@github.com:twilio-samples/twilio-verify-passwordless-authentication-go.git passwordless-authentication-go
-cd passwordless-authentication-go
+git clone git@github.com:twilio-samples/twilio-verify-passwordless-auth-totp-go.git twilio-verify-passwordless-auth-totp-go
+cd twilio-verify-passwordless-auth-totp-go
 ----
 
 === Set the required environment variables
@@ -76,25 +79,25 @@ go run main.go
 
 The application will start on port 8080.
 
-Open http://localhost:8080 in your browser of choice, enter your phone number in the form, in {e164-format}[E.164 format], and submit it.
+You can now navigate to http://localhost:8080 to test the TOTP Factor creation process.
 
-image::./docs/images/go-app/signin-form.png[The sign-in form of the application]
+image::./docs/images/go-app/totp-step-1.png[Enter the username to start registering a new TOTP Factor]
 
-You'll be redirected to the OTP verification form, and receive an SMS with a 6-digit OTP code via SMS.
-Enter the code into the form and submit it.
+Enter a username of your choice and click btn:[Set up two-factor authentication].
 
-image::./docs/images/go-app/verify-otp-code-form.png[The verify OTP code form of the application]
+image::./docs/images/go-app/totp-step-2.png[Scan the QR code and enter the generated code to verify the TOTP Factor]
 
-If the verification was success, you'll see that confirmed.
+You will be redirected to the *Verify New TOTP Factor* form.
+With your authentication app, scan the QR code, enter the 6-digit code that it generates into the form, and click btn:[Verify].
 
-image::./docs/images/go-app/verification-status.png[Confirmation that the OTP code was successfully verified]
+image::./docs/images/go-app/totp-step-3.png[Setup of the new TOTP Factor is complete]
 
-Then, if you look in the terminal session or tab where you started the application, you'll see a log entry similar to the following:
+You'll then be redirected to the *Enter TOTP Code* form, where you'll see whether the Factor was set up successfully or not, as in the screenshot above.
 
-[source,bash]
-----
-2026/07/16 10:50:00 Verification successful
-----
+image::./docs/images/go-app/totp-step-4.png[Successful verification of a new TOTP code]
+
+If the Factor was set up successfully, enter the next 6-digit code into the *Enter TOTP Code* form and click btn:[Verify]. 
+Again, you should see if it was successfully verified or not, as in the screenshot above.
 
 == Contributing
 
