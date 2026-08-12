@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en-AU">
+    <title>Register User</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://assets.twilio.com/public_assets/paste-fonts/1.5.2/fonts.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body class="container">
+    <main>
+        <h1>Register User</h1>
+        <p class="mt-60 mb-60">
+        This demo of the <a href="https://www.twilio.com/docs/verify/api">Twilio Verify API</a> shows how to set up two-factor authentication (2FA) with a third-party authenticator app like <a href="https://authy.com/download/">Authy</a> or Google Authenticator using the <a href="https://www.twilio.com/docs/glossary/totp">time-based one-time password (TOTP)</a> standard.
+        </p>
+        <hr>
+        <form action="/challenge" method="post" class="mt-60">
+            <p>Please scan the QR code in an authenticator app like Authy.</p>
+            <div class="mt-20 mb-20" style="display: flex; flex: auto; column-gap: 0.25rem; flex-shrink: 0;">
+                <img src="/static/qrcodes/qr.png" alt="QR Code" width="40%">
+                <div class="mt-60">
+                    <p>Or enter this code into your authentication app:</p>
+                    <p><strong>{{ .Seed }}</strong></p>
+                </div>
+            </div>
+            <label for="code">Enter the code generate by your authenticator app to verify this factor:</label>
+            <div class="mt-20" style="display: flex; flex: auto; column-gap: 0.25rem; flex-shrink: 0;">
+                <input
+                    id="code"
+                    inputmode="numeric"
+                    name="code"
+                    required
+                    pattern="\d{6}"
+                    placeholder="123456"
+                    type="text"
+                >
+                <button type="submit" class="primary" style="flex-grow: 1;">Verify</button>
+            </div>
+        </form>
+        <div style="background-color: #d6ebf0; padding: 2em; border-radius: 0.25rem;" class="mb-60">
+            <h2 class="mb-60">Create a New Factor | What's happening here:</h2>
+            <p style="line-height: 1.5;" class="mb-60">
+                The API is <strong>creating a new TOTP <a href="https://www.twilio.com/docs/verify/api/factor#create-a-new-factor-resource">Factor</a></strong> when you click "Set up two-factor authentication".
+                This is how the Verify API connects a user (<code>identity</code>), the <a href="https://www.twilio.com/docs/glossary/totp">TOTP channel</a>, and your app.
+                Each Factor returns the secret seed and URI used to create a QR code.
+            </p>
+            <p>
+                For this demo, we're asking for a username that will be displayed in the account name for the authenticator app.
+            </p>
+        </div>
+        <a href="/">Reset</a>
+    </main>
+</body>
+</html>
